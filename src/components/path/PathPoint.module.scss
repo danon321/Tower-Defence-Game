@@ -1,0 +1,11 @@
+.path-point {
+    position: absolute;
+    display: grid;
+    place-content: center;
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    border-radius: 50%;
+
+    color: white
+}
