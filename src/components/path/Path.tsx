@@ -1,17 +1,20 @@
 import PathPoint from '../path/PathPoint';
 import { PathCoordinates } from '../../types/path';
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { pathActions } from '../../store/path';
 
 const Path = forwardRef((props, ref: any) => {
-    const [pathCords, setPathCords] = useState<PathCoordinates[]>([])
-    function getPosition(el: any) {
+    const dispatch = useDispatch();
+    const pathPointsCoordinates = useSelector((state: { path: { pathPoints: [] } }) => state.path.pathPoints)
+
+    function getPosition(el: HTMLElement) {
         let xPos = 0;
         let yPos = 0;
 
         xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
         yPos += (el.offsetTop - el.scrollTop + el.clientTop);
-
-        el = el.offsetParent;
 
         return {
             x: xPos,
@@ -27,12 +30,12 @@ const Path = forwardRef((props, ref: any) => {
                 posY: event.clientY - boardPosition.y
             }
 
-            setPathCords(pathCords.concat(newPathCords));
+            dispatch(pathActions.setPathPoint(newPathCords))
         }
     }));
     return (
         <>
-            {pathCords.map((point: PathCoordinates, index: number) =>
+            {pathPointsCoordinates.map((point: PathCoordinates, index: number) =>
                 <PathPoint key={index} posX={point.posX} posY={point.posY}>
                     {index + 1}
                 </PathPoint>

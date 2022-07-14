@@ -4,7 +4,7 @@ import Path from './path/Path';
 import { useRef } from 'react';
 
 const Board = () => {
-    const pathRef = useRef({setPathPointsHandler(event: any): void{}});
+    const pathRef = useRef({setPathPointsHandler(event: React.MouseEvent<HTMLElement>): void{}});
 
     return (
         <div className={classes.board} onClick={(event) => pathRef.current.setPathPointsHandler(event)}>
