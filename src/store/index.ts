@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import pathReducer from './path';
+import gameSettingsReducer from './game-settings';
 
 const store = configureStore({
     reducer: {
-        path: pathReducer
+        path: pathReducer,
+        game: gameSettingsReducer
     }
 })
 
