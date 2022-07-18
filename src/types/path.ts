@@ -1,4 +1,4 @@
-export interface PathCoordinates {
+export interface Coordinates {
     posX: number; 
     posY: number;
 }

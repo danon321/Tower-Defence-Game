@@ -9,4 +9,13 @@ const store = configureStore({
     }
 })
 
+export interface IRootState {
+    path: {
+        pathPoints: []
+    };
+    game: {
+        isGameStarted: boolean
+    }
+}
+
 export default store;

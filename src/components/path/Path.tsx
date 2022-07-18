@@ -1,33 +1,34 @@
 import PathPoint from '../path/PathPoint';
-import { PathCoordinates } from '../../types/path';
+import { Coordinates } from '../../types/path';
 import React, { forwardRef, useImperativeHandle } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { pathActions } from '../../store/path';
+import { IRootState } from '../../store';
 
 const Path = forwardRef((props, ref: any) => {
     const dispatch = useDispatch();
-    const pathPointsCoordinates = useSelector((state: { path: { pathPoints: [] } }) => state.path.pathPoints)
+    const pathPointsCoordinates = useSelector((state: IRootState) => state.path.pathPoints)
 
-    function getPosition(el: HTMLElement) {
-        let xPos = 0;
-        let yPos = 0;
+    function getPosition(el: HTMLElement): Coordinates { //TODO add return type
+        let posX = 0;
+        let posY = 0;
 
-        xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-        yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+        posX += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        posY += (el.offsetTop - el.scrollTop + el.clientTop);
 
         return {
-            x: xPos,
-            y: yPos
+            posX,
+            posY
         };
     }
     useImperativeHandle(ref, () => ({
         setPathPointsHandler(event: React.MouseEvent<HTMLElement>) {
 
             const boardPosition = getPosition(event.currentTarget);
-            const newPathCords: PathCoordinates = {
-                posX: event.clientX - boardPosition.x,
-                posY: event.clientY - boardPosition.y
+            const newPathCords: Coordinates = {
+                posX: event.clientX - boardPosition.posX,
+                posY: event.clientY - boardPosition.posY
             }
 
             dispatch(pathActions.setPathPoint(newPathCords))
@@ -35,7 +36,7 @@ const Path = forwardRef((props, ref: any) => {
     }));
     return (
         <>
-            {pathPointsCoordinates.map((point: PathCoordinates, index: number) =>
+            {pathPointsCoordinates.map((point: Coordinates, index: number) =>
                 <PathPoint key={index} posX={point.posX} posY={point.posY}>
                     {index + 1}
                 </PathPoint>

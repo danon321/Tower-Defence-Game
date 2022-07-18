@@ -1,4 +1,4 @@
-import { PathCoordinates } from './path';
+import { Coordinates } from './path';
 
 interface Character {
     width: number;
@@ -10,9 +10,9 @@ export interface Enemys extends Character {}
 class Character2 {
     width: number;
     height: number;
-    position: PathCoordinates;
+    position: Coordinates;
 
-    constructor(setWidth: number, setHeight: number, newPosition: PathCoordinates) {
+    constructor(setWidth: number, setHeight: number, newPosition: Coordinates) {
         this.width = setWidth;
         this.height = setHeight;
         this.position = newPosition;

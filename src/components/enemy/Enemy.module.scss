@@ -4,5 +4,5 @@
     height: 50px;
     background-color: red;
 
-    transition: left .5s ease-in, top .5s ease-in;
+    transition: left linear, top linear;
 }
